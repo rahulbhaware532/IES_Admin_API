@@ -101,8 +101,8 @@ public class UserServiceImpl implements UserService {
 		try (Stream<String> lines = Files.lines(Paths.get(filename))) {
 			lines.forEach(line -> {
 				line = line.replace(AppConstants.FNAME, user.getFullName());
-				line = line.replace(AppConstants.PWD, user.getUserPwd());
-				line = line.replace(AppConstants.EMAIl, user.getUserEmail());
+				line = line.replace(AppConstants.PWD, user.getPwd());
+				line = line.replace(AppConstants.EMAIl, user.getEmail());
 				sb.append(line).append(System.lineSeparator()); // Ensure line breaks are preserved
 			});
 		} catch (Exception e) {

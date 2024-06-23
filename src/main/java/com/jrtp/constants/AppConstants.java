@@ -14,9 +14,9 @@ public class AppConstants {
 
 	public static final String INVALID_CRED = "Invalid Credentials"; // Denied
 
-	public static final String UNLOCKED = "Unlocked"; // Denied
+	public static final String UNLOCKED = "Unlocked";
 
-	public static final String Y_STR = "Y"; // Denied
+	public static final String Y_STR = "Y";
 
 	public static final String SUCCESS = "Success";
 

@@ -41,7 +41,7 @@ public class AccountRestController {
 		}
 	}
 
-	@GetMapping("users")
+	@GetMapping("/users")
 	public ResponseEntity<List<UserAccountForm>> getUsers() {
 		logger.debug("Fetching User Accounts process started....");
 

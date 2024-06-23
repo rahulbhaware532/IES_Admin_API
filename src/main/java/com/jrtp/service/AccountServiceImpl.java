@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,7 @@ public class AccountServiceImpl implements AccountService {
 		BeanUtils.copyProperties(accForm, entity);
 
 		// set random psw
-		entity.setUserPwd(generatePsw());
+		entity.setPwd(generatePsw());
 
 		// set acc status
 		entity.setAccStatus("LOCKED");
@@ -77,6 +79,7 @@ public class AccountServiceImpl implements AccountService {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public String changeAccStatus(Long userId, String status) {
 		Integer count = userRepository.updateAccStatus(userId, status);
@@ -91,7 +94,7 @@ public class AccountServiceImpl implements AccountService {
 
 		UserEntity entity = userRepository.findByEmail(unlockAccForm.getEmail());
 
-		entity.setUserPwd(unlockAccForm.getNewPwd());
+		entity.setPwd(unlockAccForm.getNewPwd());
 		entity.setAccStatus("UNLOCKED");
 		userRepository.save(entity);
 
@@ -118,8 +121,8 @@ public class AccountServiceImpl implements AccountService {
 		try (Stream<String> lines = Files.lines(Paths.get(filename))) {
 			lines.forEach(line -> {
 				line = line.replace("${FNAME}", user.getFullName());
-				line = line.replace("${PWD}", user.getUserPwd());
-				line = line.replace("${EMAIL}", user.getUserEmail());
+				line = line.replace("${PWD}", user.getPwd());
+				line = line.replace("${EMAIL}", user.getEmail());
 				sb.append(line).append(System.lineSeparator()); // Ensure line breaks are preserved
 			});
 		} catch (Exception e) {
